@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corpus — document extraction, embedded in your workflows</title>
+<meta name="description" content="Extraction accelerators plus forward-deployed engineers. Embedded in your workflows, running inside your boundary, with your IP staying yours.">
+
+<!--
+  ============================================================
+  HOW TO EDIT THIS PAGE
+  ============================================================
+  1. EASY WAY — open this file in a browser and click "Edit page"
+     (bottom-right). Everything marked editable turns into a text
+     box. Type over it. Use "+ Add" buttons to append founders or
+     contact lines. Then click "Download page" to save your copy.
+
+  2. CODE WAY — search this file for the markers below:
+       <!== EDIT: FOUNDERS ==>
+       <!== EDIT: CONTACT ==>
+     Every editable element also carries  data-edit  on it.
+
+  3. COMPANY NAME — currently "Corpus" (a placeholder).
+     Find-and-replace  Corpus  with your real name. It appears in
+     the <title>, nav wordmark, footer and a few body lines.
+
+  4. BEFORE GOING LIVE — delete the block marked
+       <!== REMOVE BEFORE PUBLISHING: EDIT TOOLBAR ==>
+     near the bottom, and the <script> tag right after it that is
+     labelled EDIT MODE. Everything else works without JavaScript.
+  ============================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+
+<style>
+/* ---------- tokens ---------- */
+:root{
+  --paper:#E8E9E4;
+  --card:#F2F3EE;
+  --ink:#171A17;
+  --ink-2:#3A403A;
+  --soft:#6A7068;
+  --rule:#C5C8BF;
+  --rule-2:#D8DAD3;
+  --indigo:#23347A;
+  --indigo-2:#5A69A8;
+  --stamp:#B03A26;
+  --max:1180px;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--body);font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--indigo);text-decoration-thickness:1px;text-underline-offset:3px}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+
+/* ---------- type ---------- */
+h1,h2,h3,h4{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+h1{font-size:clamp(2.35rem,5.4vw,4.15rem);line-height:1.02;letter-spacing:-.035em;font-weight:800}
+h2{font-size:clamp(1.75rem,3.3vw,2.6rem);line-height:1.08;letter-spacing:-.028em}
+h3{font-size:1.14rem;line-height:1.3;letter-spacing:-.012em}
+p{margin:0 0 1.05em}
+.lede{font-size:clamp(1.06rem,1.65vw,1.28rem);line-height:1.55;color:var(--ink-2)}
+.mono{font-family:var(--mono)}
+.tag{
+  font-family:var(--mono);font-size:.685rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--soft);
+}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:60;background:rgba(232,233,228,.88);
+  backdrop-filter:saturate(140%) blur(9px);border-bottom:1px solid var(--rule);
+}
+.nav-in{display:flex;align-items:center;gap:26px;height:60px;max-width:var(--max);margin:0 auto;padding:0 28px}
+.mark{font-family:var(--display);font-weight:800;letter-spacing:-.035em;font-size:1.16rem;margin-right:auto;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:9px}
+.mark span{width:9px;height:9px;background:var(--indigo);display:inline-block}
+.nav a.nl{font-family:var(--mono);font-size:.735rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);text-decoration:none}
+.nav a.nl:hover{color:var(--indigo)}
+.nav .btn{padding:8px 15px;font-size:.735rem}
+@media(max-width:820px){.nav a.nl{display:none}}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-block;font-family:var(--mono);font-size:.78rem;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;text-decoration:none;
+  padding:13px 22px;border:1px solid var(--indigo);background:var(--indigo);color:#fff;
+  transition:background .16s ease,color .16s ease;cursor:pointer;
+}
+.btn:hover{background:#1a2861}
+.btn-ghost{background:transparent;color:var(--indigo)}
+.btn-ghost:hover{background:var(--indigo);color:#fff}
+
+/* ---------- section frame ---------- */
+.sec{padding:clamp(64px,8vw,108px) 0;border-top:1px solid var(--rule)}
+.sec-grid{display:grid;grid-template-columns:172px minmax(0,1fr);gap:52px;align-items:start}
+.rail{position:sticky;top:88px}
+.rail .path{font-family:var(--mono);font-size:.72rem;color:var(--indigo);letter-spacing:.02em;display:block;margin-bottom:8px;word-break:break-all}
+.rail .note{font-family:var(--mono);font-size:.7rem;color:var(--soft);line-height:1.5;border-top:1px solid var(--rule);padding-top:9px}
+@media(max-width:880px){
+  .sec-grid{grid-template-columns:1fr;gap:22px}
+  .rail{position:static}
+  .rail .note{display:none}
+}
+
+.sec-ink{background:var(--ink);color:#DCDED7;border-top-color:var(--ink)}
+.sec-ink h2,.sec-ink h3{color:#F2F3EE}
+.sec-ink .rail .path{color:#93A0D8}
+.sec-ink .rail .note{color:#7C837A;border-top-color:#2E332E}
+.sec-ink .lede{color:#B9BDB5}
+.sec-ink .tag{color:#8A9088}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(46px,6vw,76px) 0 clamp(56px,7vw,86px);border-top:0}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:56px;align-items:center}
+@media(max-width:980px){.hero-grid{grid-template-columns:1fr;gap:44px}}
+.hero h1{margin:16px 0 22px}
+.hero h1 em{font-style:normal;color:var(--indigo);position:relative}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.hero-meta{display:flex;gap:26px;flex-wrap:wrap;margin-top:34px;padding-top:20px;border-top:1px solid var(--rule)}
+.hero-meta div{font-family:var(--mono);font-size:.735rem;line-height:1.5;color:var(--ink-2);max-width:190px}
+.hero-meta b{display:block;color:var(--indigo);font-weight:600;margin-bottom:3px;letter-spacing:.06em;text-transform:uppercase;font-size:.68rem}
+
+/* ---------- signature: the extraction pane ---------- */
+.pane{display:grid;grid-template-rows:auto auto;gap:14px}
+.pane-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+
+.doc{
+  background:var(--card);border:1px solid var(--rule);
+  padding:22px 22px 18px;position:relative;
+  box-shadow:14px 14px 0 rgba(23,26,23,.055);
+}
+.doc-top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--rule-2);padding-bottom:12px;margin-bottom:14px}
+.doc-org{font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:-.01em}
+.doc-kind{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--soft)}
+.doc-rows{display:grid;grid-template-columns:1fr 1fr;gap:9px 20px;font-size:.8rem}
+.doc-rows .k{font-family:var(--mono);font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);display:block}
+.doc-tbl{width:100%;border-collapse:collapse;margin-top:15px;font-size:.76rem}
+.doc-tbl th{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);text-align:left;font-weight:500;border-bottom:1px solid var(--rule-2);padding:0 0 5px}
+.doc-tbl td{padding:5px 0;border-bottom:1px solid var(--rule-2)}
+.doc-tbl td:last-child,.doc-tbl th:last-child{text-align:right}
+.doc-smudge{filter:blur(1.6px);opacity:.42;user-select:none}
+
+/* field boxes */
+.f{
+  position:relative;display:inline-block;padding:1px 3px;margin:-1px -3px;
+  outline:1px solid transparent;outline-offset:1px;
+  transition:outline-color .3s ease,background-color .3s ease;
+}
+.f.lit{outline-color:var(--indigo-2);background:rgba(35,52,122,.055)}
+.f.lit::after{
+  content:attr(data-k);position:absolute;left:-1px;top:-13px;
+  font-family:var(--mono);font-size:.53rem;letter-spacing:.09em;text-transform:uppercase;
+  color:#fff;background:var(--indigo);padding:1px 4px;white-space:nowrap;
+  opacity:0;transition:opacity .18s ease;pointer-events:none;
+}
+.f.on{outline-color:var(--indigo);outline-width:2px;background:rgba(35,52,122,.11)}
+.f.on::after{opacity:1}
+.f.miss.lit{outline-color:var(--stamp);background:rgba(176,58,38,.075)}
+.f.miss.lit::after{background:var(--stamp)}
+.f.miss.on{outline-color:var(--stamp)}
+tr.f{display:table-row;outline-offset:-1px}
+tr.f.lit::after{display:none}
+
+/* json readout */
+.out{background:var(--ink);color:#C9CDC5;border:1px solid var(--ink);padding:16px 18px;font-family:var(--mono);font-size:.735rem;line-height:1.85;overflow-x:auto}
+.out .l{display:block;white-space:pre;transition:background-color .2s ease,opacity .35s ease;opacity:0;padding:0 6px;margin:0 -6px;border-radius:1px}
+.out .l.lit{opacity:1}
+.out .l.on{background:rgba(147,160,216,.2)}
+.out .key{color:#93A0D8}
+.out .str{color:#CFD3CA}
+.out .num{color:#E4C77B}
+.out .nul{color:#E2836E}
+.out .cm{color:#6E756C}
+.out .l.miss.on{background:rgba(176,58,38,.24)}
+.pane-foot{font-family:var(--mono);font-size:.685rem;color:var(--soft);line-height:1.55;display:flex;gap:8px;align-items:flex-start}
+.pane-foot .dot{width:7px;height:7px;background:var(--stamp);flex:none;margin-top:6px}
+
+/* ---------- problem ---------- */
+.doctypes{border-top:1px solid var(--rule);margin-top:34px}
+.dt{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,1.05fr);gap:18px;padding:15px 0;border-bottom:1px solid var(--rule)}
+.dt .fn{font-family:var(--display);font-weight:700;font-size:.93rem;letter-spacing:-.01em}
+.dt .ds{font-family:var(--mono);font-size:.735rem;color:var(--ink-2);line-height:1.6}
+.dt .dw{font-size:.87rem;color:var(--soft);line-height:1.55}
+@media(max-width:760px){.dt{grid-template-columns:1fr;gap:6px}}
+.pull{
+  border-left:3px solid var(--stamp);padding:4px 0 4px 18px;margin:34px 0 0;
+  font-size:clamp(1.05rem,2vw,1.32rem);line-height:1.45;font-weight:600;letter-spacing:-.01em;
+}
+
+/* ---------- comparison ---------- */
+.cmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin-top:34px;border:1px solid var(--rule)}
+.cmp-h{padding:16px 20px;border-bottom:1px solid var(--rule)}
+.cmp-h.b{border-left:1px solid var(--rule);background:var(--card)}
+.cmp-h .t{font-family:var(--display);font-weight:700;font-size:1.02rem}
+.cmp-r{padding:15px 20px;border-bottom:1px solid var(--rule-2);font-size:.9rem;line-height:1.55}
+.cmp-r.b{border-left:1px solid var(--rule);background:var(--card)}
+.cmp-r .q{font-family:var(--mono);font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--soft);display:block;margin-bottom:6px}
+.cmp-r.b .q{color:var(--indigo)}
+.cmp>*:nth-last-child(-n+2){border-bottom:0}
+@media(max-width:720px){
+  .cmp{grid-template-columns:1fr}
+  .cmp-h.b,.cmp-r.b{border-left:0}
+  .cmp-h.b{border-top:1px solid var(--rule)}
+  .cmp>*:nth-last-child(-n+2){border-bottom:1px solid var(--rule-2)}
+}
+.accel{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:34px}
+.accel div{background:var(--paper);padding:18px 18px 20px}
+.accel h3{font-size:.93rem;margin-bottom:6px}
+.accel p{font-size:.855rem;color:var(--ink-2);margin:0;line-height:1.5}
+.accel .n{font-family:var(--mono);font-size:.62rem;color:var(--indigo);letter-spacing:.12em;display:block;margin-bottom:9px}
+
+/* ---------- custody (ink) ---------- */
+.vault{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:#2E332E;border:1px solid #2E332E;margin-top:34px}
+.vault div{background:var(--ink);padding:22px 20px}
+.vault h3{font-size:1rem;margin-bottom:8px}
+.vault p{font-size:.87rem;color:#A8ACA4;margin:0;line-height:1.55}
+.vault .mk{font-family:var(--mono);font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:#93A0D8;display:block;margin-bottom:11px}
+.exit{margin-top:32px;border:1px dashed #4A5049;padding:20px 22px}
+.exit p{margin:0;font-size:.95rem;color:#C9CDC5}
+.exit strong{color:#F2F3EE;font-family:var(--display);letter-spacing:-.01em}
+
+/* ---------- founders ---------- */
+.founders{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:22px;margin-top:34px}
+.fc{background:var(--card);border:1px solid var(--rule);padding:22px 22px 24px;position:relative}
+.fc .av{width:52px;height:52px;background:var(--indigo);color:#fff;font-family:var(--display);font-weight:700;font-size:1.25rem;display:flex;align-items:center;justify-content:center;margin-bottom:16px;letter-spacing:-.02em}
+.fc h3{font-size:1.16rem;margin-bottom:3px}
+.fc .role{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--indigo);margin-bottom:12px}
+.fc p{font-size:.885rem;color:var(--ink-2);line-height:1.55;margin:0 0 12px}
+.fc .lnk{font-family:var(--mono);font-size:.72rem;text-decoration:none;border-bottom:1px solid var(--indigo-2)}
+
+/* ---------- scale ---------- */
+.steps{margin-top:34px;border-top:1px solid var(--rule)}
+.st{display:grid;grid-template-columns:56px minmax(0,1fr) minmax(0,1.15fr);gap:20px;padding:22px 0;border-bottom:1px solid var(--rule)}
+.st .num{font-family:var(--mono);font-size:.78rem;color:var(--indigo);padding-top:3px}
+.st h3{font-size:1.1rem;margin-bottom:4px}
+.st .when{font-family:var(--mono);font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;color:var(--soft)}
+.st p{margin:0;font-size:.9rem;color:var(--ink-2);line-height:1.55}
+@media(max-width:760px){.st{grid-template-columns:40px 1fr;gap:12px}.st p{grid-column:2}}
+.depts{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.depts span{font-family:var(--mono);font-size:.72rem;border:1px solid var(--rule);padding:6px 11px;background:var(--card);color:var(--ink-2)}
+.depts span.on{border-color:var(--indigo);color:var(--indigo);background:rgba(35,52,122,.06)}
+
+/* ---------- contact ---------- */
+.contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;margin-top:30px}
+@media(max-width:760px){.contact-grid{grid-template-columns:1fr;gap:28px}}
+.cl{border-top:1px solid var(--rule)}
+.cr{display:grid;grid-template-columns:112px minmax(0,1fr);gap:14px;padding:12px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.cr .cl-k{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+.cr .cl-v{font-size:.95rem;word-break:break-word}
+.cr .cl-v a{text-decoration:none;border-bottom:1px solid var(--indigo-2)}
+.addr{font-size:.93rem;color:var(--ink-2);line-height:1.6}
+
+/* ---------- footer ---------- */
+.foot{border-top:1px solid var(--rule);padding:30px 0 44px;font-family:var(--mono);font-size:.7rem;color:var(--soft)}
+.foot-in{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center}
+
+/* ---------- edit mode ---------- */
+.edit-bar{position:fixed;right:18px;bottom:18px;z-index:99;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.edit-bar button{font-family:var(--mono);font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;padding:10px 14px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
+.edit-bar button.sec-b{background:var(--paper);color:var(--ink)}
+.edit-bar button[hidden]{display:none}
+body.editing [data-edit]{outline:1px dashed var(--indigo-2);outline-offset:3px;border-radius:1px}
+body.editing [data-edit]:focus{outline:2px solid var(--indigo);background:rgba(35,52,122,.05)}
+.addbtn{display:none;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;margin-top:16px;padding:9px 14px;border:1px dashed var(--indigo-2);background:transparent;color:var(--indigo);cursor:pointer}
+body.editing .addbtn{display:inline-block}
+.sec-ink .addbtn{color:#93A0D8}
+
+:focus-visible{outline:2px solid var(--indigo);outline-offset:3px}
+.sec-ink :focus-visible{outline-color:#93A0D8}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="nav">
+  <div class="nav-in">
+    <a class="mark" href="#top"><span></span>Corpus</a>
+    <a class="nl" href="#problem">Problem</a>
+    <a class="nl" href="#model">Model</a>
+    <a class="nl" href="#custody">IP &amp; data</a>
+    <a class="nl" href="#founders">Founders</a>
+    <a class="nl" href="#scale">Scale</a>
+    <a class="btn" href="#contact">Talk to us</a>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="sec hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="tag">Unstructured &rarr; structured &rarr; in production</span>
+        <h1 data-edit>The work is in the documents. Your systems still <em>can't read them.</em></h1>
+        <p class="lede" data-edit>We bring extraction accelerators and the engineers who embed them — into your queues, your exception paths, your systems of record. It runs inside your boundary. The models, schemas and code we build belong to you.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#contact">Start a pilot</a>
+          <a class="btn btn-ghost" href="#model">How we work</a>
+        </div>
+        <div class="hero-meta">
+          <div><b>Deployed</b>Forward-deployed engineers sitting with your operations team, not a support portal.</div>
+          <div><b>Accelerators</b>Schemas, eval harnesses, review UI and connectors on day one — not a blank repo.</div>
+          <div><b>Yours</b>Your data stays in your tenancy. Your IP stays on your balance sheet.</div>
+        </div>
+      </div>
+
+      <!-- SIGNATURE: a document being read. Hover a field or a line. -->
+      <div class="pane" id="pane">
+        <div class="pane-head">
+          <span class="tag">Live read &middot; supplier invoice</span>
+          <span class="tag">conf. threshold 0.92</span>
+        </div>
+
+        <div class="doc">
+          <div class="doc-top">
+            <div>
+              <div class="doc-org"><span class="f" data-k="vendor">Meridian Freight Ltd.</span></div>
+              <div class="doc-kind">Remittance &amp; invoice</div>
+            </div>
+            <div style="text-align:right">
+              <span class="doc-kind">No.</span>
+              <div style="font-family:var(--mono);font-size:.83rem"><span class="f" data-k="invoice_number">INV-88213</span></div>
+            </div>
+          </div>
+
+          <div class="doc-rows">
+            <div><span class="k">Invoice date</span><span class="f" data-k="invoice_date">14 March 2026</span></div>
+            <div><span class="k">Payment terms</span>Net 45</div>
+            <div><span class="k">PO reference</span><span class="f miss" data-k="po_number"><span class="doc-smudge">PO-4••••2</span></span></div>
+            <div><span class="k">Currency</span>USD</div>
+          </div>
+
+          <table class="doc-tbl">
+            <thead><tr><th>Description</th><th>Qty</th><th>Amount</th></tr></thead>
+            <tbody>
+              <tr class="f" data-k="line_items"><td>Ocean freight — SIN&rarr;RTM</td><td>3</td><td>28,400.00</td></tr>
+              <tr class="f" data-k="line_items"><td>Customs handling</td><td>3</td><td>7,150.00</td></tr>
+              <tr class="f" data-k="line_items"><td>Demurrage, 4 days</td><td>1</td><td>5,700.00</td></tr>
+              <tr><td style="font-weight:600">Total due</td><td></td><td><span class="f" data-k="total" style="font-weight:600">44,550.00</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="out" aria-label="Extracted record">
+<span class="l" data-k="_">{</span><span class="l" data-k="vendor">  <span class="key">"vendor"</span>: <span class="str">"Meridian Freight Ltd."</span>,</span><span class="l" data-k="invoice_number">  <span class="key">"invoice_number"</span>: <span class="str">"INV-88213"</span>,</span><span class="l" data-k="invoice_date">  <span class="key">"invoice_date"</span>: <span class="str">"2026-03-14"</span>,</span><span class="l" data-k="line_items">  <span class="key">"line_items"</span>: <span class="num">3</span>,</span><span class="l" data-k="total">  <span class="key">"total"</span>: <span class="num">44550.00</span>,</span><span class="l miss" data-k="po_number">  <span class="key">"po_number"</span>: <span class="nul">null</span>,   <span class="cm">// illegible &rarr; exception queue</span></span><span class="l" data-k="_">  <span class="key">"route"</span>: <span class="str">"ap_review.meridian"</span></span><span class="l" data-k="_">}</span>
+        </div>
+
+        <div class="pane-foot"><span class="dot"></span><span>One smudged PO number is the whole problem. A model gets the page. Someone still has to decide who fixes it, in which queue, before which payment run — and prove it later.</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= PROBLEM ================= -->
+<section class="sec" id="problem">
+  <div class="wrap sec-grid">
+    <aside class="rail">
+      <span class="path">record.problem</span>
+      <p class="note">The enterprise runs on paper it can no longer read at speed.</p>
+    </aside>
+    <div>
+      <span class="tag">The problem</span>
+      <h2 style="margin:12px 0 20px" data-edit>Almost every enterprise AI use case turns out to be a document use case.</h2>
+      <p class="lede" data-edit>Strip the ambition out of any enterprise AI roadmap and you find the same thing underneath: a contract, a claim, a certificate, a statement, a submission. The decision is downstream. The document is the bottleneck. And these documents don't behave — they arrive as scans, as email attachments, as forty-page PDFs where the number you need lives in a footnote of appendix C.</p>
+
+      <div class="doctypes">
+        <div class="dt"><div class="fn">Finance &amp; AP</div><div class="ds">invoices · remittances · bank confirmations · intercompany statements</div><div class="dw">Three-way match breaks on a vendor that changed its template last quarter.</div></div>
+        <div class="dt"><div class="fn">Legal &amp; contracts</div><div class="ds">MSAs · amendments · SOWs · NDAs · side letters</div><div class="dw">The obligation you're liable for sits in an amendment nobody indexed.</div></div>
+        <div class="dt"><div class="fn">Supply chain</div><div class="ds">bills of lading · packing lists · certificates of analysis</div><div class="dw">A shipment clears or sits, depending on how fast someone reads a PDF.</div></div>
+        <div class="dt"><div class="fn">Regulatory &amp; quality</div><div class="ds">submissions · SOPs · deviation reports · batch records</div><div class="dw">Every extraction needs a traceable reason, not just an answer.</div></div>
+        <div class="dt"><div class="fn">Claims &amp; underwriting</div><div class="ds">loss reports · medical records · policy schedules · surveys</div><div class="dw">Cycle time is the product, and it's spent on reading.</div></div>
+        <div class="dt"><div class="fn">HR &amp; onboarding</div><div class="ds">offer letters · verifications · credentials · immigration files</div><div class="dw">Low volume, high sensitivity, zero tolerance for a wrong field.</div></div>
+      </div>
+
+      <p class="pull" data-edit>Pilots rarely fail because a model can't read a page. They fail in the six feet between a correct extraction and someone actually acting on it.</p>
+      <p style="margin-top:22px;color:var(--ink-2)" data-edit>That gap is not a modelling problem. It's exception handling, confidence thresholds, reviewer workload, retries, system-of-record writeback, audit evidence, and the twelve document variants nobody mentioned in the scoping call. It is engineering work, done next to the people who own the process.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MODEL ================= -->
+<section class="sec" id="model">
+  <div class="wrap sec-grid">
+    <aside class="rail">
+      <span class="path">record.model</span>
+      <p class="note">Accelerators plus embedded engineers, instead of a licence and a hope.</p>
+    </aside>
+    <div>
+      <span class="tag">Why embedding beats buying</span>
+      <h2 style="margin:12px 0 20px" data-edit>A product has to be right for everyone. We only have to be right for you.</h2>
+      <p class="lede" data-edit>Extraction platforms are genuinely good now, and we build on that. But a platform is designed for the average document and the average workflow, and no enterprise operates an average workflow. What's left over — the variants, the exceptions, the handoffs, the evidence trail — is exactly where the return lives, and it's the part no vendor can ship you in a box.</p>
+
+      <div class="cmp">
+        <div class="cmp-h"><div class="t">Buying a platform</div></div>
+        <div class="cmp-h b"><div class="t">Embedding a team</div></div>
+
+        <div class="cmp-r"><span class="q">What you receive</span>A capable general-purpose engine and a set of APIs. Fitting it to your process is scoped as "integration", and it's on you.</div>
+        <div class="cmp-r b"><span class="q">What you receive</span>A working workflow. Engine, schemas, review path, writeback and monitoring, live in your environment against your real documents.</div>
+
+        <div class="cmp-r"><span class="q">Who owns the edge cases</span>Your team, on a roadmap ticket. The vendor prioritises what's common across their whole customer base.</div>
+        <div class="cmp-r b"><span class="q">Who owns the edge cases</span>Us, in the same week. Your rare document type is not rare to us — it's the assignment.</div>
+
+        <div class="cmp-r"><span class="q">Where your documents go</span>Usually out to a vendor tenancy, under a DPA and a retention policy you didn't write.</div>
+        <div class="cmp-r b"><span class="q">Where your documents go</span>Nowhere. We deploy inside your cloud account or data centre and work within your controls.</div>
+
+        <div class="cmp-r"><span class="q">Where the learning accumulates</span>In the vendor's product — improving it for the market, including your competitors.</div>
+        <div class="cmp-r b"><span class="q">Where the learning accumulates</span>In your repository. Schemas, prompts, eval sets and tuned models stay behind as your asset.</div>
+
+        <div class="cmp-r"><span class="q">Year three</span>Renewal leverage sits with the vendor. Migration cost is the reason you renew.</div>
+        <div class="cmp-r b"><span class="q">Year three</span>Your engineers run it. We're advising on the next department, or we're not needed.</div>
+      </div>
+
+      <h3 style="margin:44px 0 4px">We don't start from zero</h3>
+      <p style="color:var(--ink-2);margin-bottom:0" data-edit>The accelerators are the reason a first workflow reaches production in weeks rather than quarters. They are ours to bring; what we build on top of them is yours to keep.</p>
+
+      <div class="accel">
+        <div><span class="n">01 / SCHEMAS</span><h3>Document schema library</h3><p>Pre-built field definitions for invoices, contracts, claims, lab reports, shipping and KYC packs — starting points, tuned to your variants.</p></div>
+        <div><span class="n">02 / EVALS</span><h3>Evaluation harness</h3><p>Accuracy measured per field, per document type, on your gold set — so "is it working" has a number, and regressions get caught.</p></div>
+        <div><span class="n">03 / HUMANS</span><h3>Exception &amp; review console</h3><p>Confidence routing, side-by-side correction, and every correction feeding back as training signal you own.</p></div>
+        <div><span class="n">04 / PLUMBING</span><h3>Connectors &amp; writeback</h3><p>SAP, ServiceNow, Salesforce, Guidewire, SharePoint, S3, message queues. The unglamorous half of the project, already built.</p></div>
+        <div><span class="n">05 / PROOF</span><h3>Audit &amp; lineage</h3><p>Every extracted value traceable to a page, a region, a model version and a reviewer. Ready for the regulator, not just the demo.</p></div>
+        <div><span class="n">06 / OPS</span><h3>Runbooks &amp; handover</h3><p>Monitoring, drift alerts and documentation written for your team to operate — from the first sprint, not the last.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CUSTODY / IP ================= -->
+<section class="sec sec-ink" id="custody">
+  <div class="wrap sec-grid">
+    <aside class="rail">
+      <span class="path">record.custody</span>
+      <p class="note">Nothing crosses your perimeter. Nothing you paid for leaves with us.</p>
+    </aside>
+    <div>
+      <span class="tag">IP and data custody</span>
+      <h2 style="margin:12px 0 20px" data-edit>Your documents never leave. Neither does what we build with them.</h2>
+      <p class="lede" data-edit>Document extraction touches the most sensitive material an enterprise holds — pricing, patient data, unsigned terms, personal records. So the deployment model isn't a procurement detail we negotiate at the end. It's the first thing we design around, and it's written into the contract, not the marketing page.</p>
+
+      <div class="vault">
+        <div><span class="mk">Residency</span><h3>Runs where you run</h3><p>Your VPC, your subscription, your data centre, your air-gapped environment. We deploy into it and work under your IAM, your logging, your change control.</p></div>
+        <div><span class="mk">Training</span><h3>No training on your data</h3><p>Your documents, corrections and outputs are never used to train models we take elsewhere. No aggregate telemetry, no "anonymised" carve-out.</p></div>
+        <div><span class="mk">Ownership</span><h3>You own the work product</h3><p>Schemas, prompts, fine-tuned weights, evaluation sets, pipeline code and documentation are assigned to you on delivery. Our accelerators come licensed perpetually for your use.</p></div>
+        <div><span class="mk">Retention</span><h3>Retention on your clock</h3><p>You set what is stored, for how long, and where. Deletion runs on your schedule and produces evidence. We hold no copies, because there is nothing to copy.</p></div>
+        <div><span class="mk">Access</span><h3>Least privilege, logged</h3><p>Named engineers, scoped credentials, time-boxed access, full session logging, and offboarding tied to your identity provider — not an email to us.</p></div>
+        <div><span class="mk">Advantage</span><h3>Your corpus is the moat</h3><p>Twenty years of your contracts and claims is an asset no competitor can buy. Extraction should compound it inside your walls — not hand it to a shared platform to learn from.</p></div>
+      </div>
+
+      <div class="exit">
+        <p><strong>The exit test.</strong> If we walked away tomorrow, your workflow keeps running, your team can change it, and nothing stops because a licence lapsed. Any engagement that fails that test is one we've designed badly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOUNDERS ================= -->
+<!-- ============== EDIT: FOUNDERS ==============
+     Replace names, roles, bios and links below.
+     To add another founder, copy one whole <article class="fc"> block,
+     or click "Edit page" then "+ Add founder".
+     The .av square holds initials.
+================================================= -->
+<section class="sec" id="founders">
+  <div class="wrap sec-grid">
+    <aside class="rail">
+      <span class="path">record.founders</span>
+      <p class="note">Who you actually get in the room.</p>
+    </aside>
+    <div>
+      <span class="tag">Founders</span>
+      <h2 style="margin:12px 0 20px" data-edit>Built by people who have shipped this inside enterprises before.</h2>
+      <p class="lede" data-edit>Forward-deployed work only works if the people doing it have carried a production system, sat through an audit, and argued with a procurement team. Replace this paragraph with your own framing.</p>
+
+      <div class="founders" id="founders-list">
+        <article class="fc">
+          <div class="av" data-edit>AB</div>
+          <h3 data-edit>Founder Name</h3>
+          <div class="role" data-edit>Co-founder &amp; CEO</div>
+          <p data-edit>One or two sentences on background: where they built document or ML systems, what scale, and which industry they know from the inside. Keep it concrete — a named system beats an adjective.</p>
+          <a class="lnk" href="#" data-edit>LinkedIn &rarr;</a>
+        </article>
+
+        <article class="fc">
+          <div class="av" data-edit>CD</div>
+          <h3 data-edit>Founder Name</h3>
+          <div class="role" data-edit>Co-founder &amp; CTO</div>
+          <p data-edit>One or two sentences on background: the platform they architected, the models they deployed, the regulated environment they worked under. Add a number if you have one.</p>
+          <a class="lnk" href="#" data-edit>LinkedIn &rarr;</a>
+        </article>
+
+        <article class="fc">
+          <div class="av" data-edit>EF</div>
+          <h3 data-edit>Founder Name</h3>
+          <div class="role" data-edit>Co-founder &amp; Head of Delivery</div>
+          <p data-edit>One or two sentences on background: the enterprise programmes they ran, the teams they led, and the functions they know how to embed into.</p>
+          <a class="lnk" href="#" data-edit>LinkedIn &rarr;</a>
+        </article>
+      </div>
+      <button class="addbtn" type="button" data-add="founder">+ Add founder</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SCALE ================= -->
+<section class="sec" id="scale">
+  <div class="wrap sec-grid">
+    <aside class="rail">
+      <span class="path">record.scale</span>
+      <p class="note">One workflow proves it. The platform underneath is what spreads.</p>
+    </aside>
+    <div>
+      <span class="tag">Scaling across the enterprise</span>
+      <h2 style="margin:12px 0 20px" data-edit>The second workflow should cost a fraction of the first. Then the tenth.</h2>
+      <p class="lede" data-edit>Most enterprises don't have an AI problem, they have a hundred document problems in twelve departments, each too small to justify its own vendor. The reason to build a shared extraction capability once is that everything after it gets cheap. Our job is to make the first one work, and then make ourselves progressively less necessary.</p>
+
+      <div class="steps">
+        <div class="st"><div class="num">01</div><div><h3>Land</h3><div class="when">Weeks 1–6</div></div><p>One workflow, one department, one measurable number — cycle time, touch rate, cost per document. Our engineers work from your side of the firewall against your real backlog, not a sample set.</p></div>
+        <div class="st"><div class="num">02</div><div><h3>Harden</h3><div class="when">Weeks 6–14</div></div><p>Evaluation harness, confidence thresholds, exception queues, monitoring, runbooks. This is the step that separates a pilot that survives contact with volume from one that quietly gets switched off.</p></div>
+        <div class="st"><div class="num">03</div><div><h3>Extend</h3><div class="when">Quarter 2 onward</div></div><p>Adjacent workflows reuse the same ingestion, schema library, review console and audit trail. New document types are a configuration and an eval set, not a new project with a new vendor.</p></div>
+        <div class="st"><div class="num">04</div><div><h3>Hand over</h3><div class="when">Continuous</div></div><p>Your engineers pair with ours from week one and take ownership deliberately. We shift to advising the next department, or we step back entirely. Both are a success.</p></div>
+      </div>
+
+      <p style="margin-top:34px;font-size:.95rem;color:var(--ink-2)" data-edit>The same foundation carries across functions — which is why the business case is never really about one department:</p>
+      <div class="depts">
+        <span class="on">Accounts payable</span><span>Procurement</span><span>Legal &amp; contracts</span><span>Trade finance</span><span>Claims</span><span>Underwriting</span><span>KYC &amp; onboarding</span><span>Regulatory affairs</span><span>Quality &amp; batch records</span><span>Clinical operations</span><span>Logistics</span><span>HR &amp; payroll</span><span>Tax</span><span>Facilities</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<!-- ============== EDIT: CONTACT ==============
+     Add or change email addresses, phone numbers and offices.
+     To append a line, copy one <div class="cr"> block, or click
+     "Edit page" then "+ Add contact line".
+     Remember to update the href= on mailto: and tel: links.
+================================================= -->
+<section class="sec" id="contact">
+  <div class="wrap sec-grid">
+    <aside class="rail">
+      <span class="path">record.contact</span>
+      <p class="note">A short call with an engineer, not a discovery deck.</p>
+    </aside>
+    <div>
+      <span class="tag">Contact</span>
+      <h2 style="margin:12px 0 18px" data-edit>Bring us your worst document.</h2>
+      <p class="lede" data-edit>The fastest way to judge us is to send the file that breaks everything else — the scanned amendment, the multi-language packing list, the fifty-page report with one number that matters. We'll come back with what we'd extract, how we'd handle the exceptions, and what the first six weeks would look like.</p>
+
+      <div class="contact-grid">
+        <div>
+          <div class="cl" id="contact-list">
+            <div class="cr"><div class="cl-k" data-edit>General</div><div class="cl-v"><a href="mailto:hello@example.com" data-edit>hello@example.com</a></div></div>
+            <div class="cr"><div class="cl-k" data-edit>New engagements</div><div class="cl-v"><a href="mailto:sales@example.com" data-edit>sales@example.com</a></div></div>
+            <div class="cr"><div class="cl-k" data-edit>Partnerships</div><div class="cl-v"><a href="mailto:partners@example.com" data-edit>partners@example.com</a></div></div>
+            <div class="cr"><div class="cl-k" data-edit>Phone</div><div class="cl-v"><a href="tel:+910000000000" data-edit>+91 00000 00000</a></div></div>
+            <div class="cr"><div class="cl-k" data-edit>Phone (US)</div><div class="cl-v"><a href="tel:+10000000000" data-edit>+1 000 000 0000</a></div></div>
+          </div>
+          <button class="addbtn" type="button" data-add="contact">+ Add contact line</button>
+        </div>
+
+        <div>
+          <span class="tag">Offices</span>
+          <p class="addr" style="margin-top:12px" data-edit>
+            <strong>Chennai</strong><br>
+            Street address line one<br>
+            Chennai, Tamil Nadu 600000<br>
+            India
+          </p>
+          <p class="addr" data-edit>
+            <strong>Second office</strong><br>
+            Street address line one<br>
+            City, State ZIP<br>
+            Country
+          </p>
+          <a class="btn" href="mailto:hello@example.com" data-edit>Email us a document</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span data-edit>&copy; 2026 Corpus. Unstructured to structured, inside your walls.</span>
+    <span data-edit>Deployed, not licensed.</span>
+  </div>
+</footer>
+
+<!-- ========== REMOVE BEFORE PUBLISHING: EDIT TOOLBAR ========== -->
+<div class="edit-bar">
+  <button type="button" id="editToggle">Edit page</button>
+  <button type="button" id="dl" class="sec-b" hidden>Download page</button>
+</div>
+
+<script>
+/* ---------- SIGNATURE: linked highlighting between document + record ---------- */
+(function(){
+  var pane = document.getElementById('pane');
+  if(!pane) return;
+  var fields = Array.prototype.slice.call(pane.querySelectorAll('.f'));
+  var lines  = Array.prototype.slice.call(pane.querySelectorAll('.out .l'));
+  var all    = fields.concat(lines);
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function set(k, on){
+    all.forEach(function(el){
+      if(el.dataset.k === k && k !== '_') el.classList.toggle('on', on);
+    });
+  }
+  all.forEach(function(el){
+    el.addEventListener('mouseenter', function(){ set(el.dataset.k, true); });
+    el.addEventListener('mouseleave', function(){ set(el.dataset.k, false); });
+  });
+
+  var order = ['vendor','invoice_number','invoice_date','line_items','total','po_number'];
+  function lightAll(){ all.forEach(function(el){ el.classList.add('lit'); }); }
+
+  if(reduce){ lightAll(); return; }
+  lines.forEach(function(l,i){ setTimeout(function(){ l.classList.add('lit'); }, 260 + i*90); });
+  order.forEach(function(k,i){
+    setTimeout(function(){
+      fields.forEach(function(f){ if(f.dataset.k === k) f.classList.add('lit'); });
+    }, 500 + i*230);
+  });
+})();
+
+/* ---------- EDIT MODE (delete this block before publishing) ---------- */
+(function(){
+  var toggle = document.getElementById('editToggle');
+  var dl = document.getElementById('dl');
+  var editing = false;
+
+  function setEditable(on){
+    document.querySelectorAll('[data-edit]').forEach(function(el){
+      if(on) el.setAttribute('contenteditable','true');
+      else el.removeAttribute('contenteditable');
+    });
+    document.body.classList.toggle('editing', on);
+    toggle.textContent = on ? 'Done editing' : 'Edit page';
+    dl.hidden = !on;
+  }
+  toggle.addEventListener('click', function(){ editing = !editing; setEditable(editing); });
+
+  document.querySelectorAll('[data-add]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var kind = btn.dataset.add;
+      if(kind === 'founder'){
+        var list = document.getElementById('founders-list');
+        var copy = list.lastElementChild.cloneNode(true);
+        copy.querySelector('.av').textContent = 'XY';
+        copy.querySelector('h3').textContent = 'Founder Name';
+        copy.querySelector('.role').textContent = 'Role';
+        copy.querySelector('p').textContent = 'Short bio.';
+        list.appendChild(copy);
+      } else {
+        var cl = document.getElementById('contact-list');
+        var row = cl.lastElementChild.cloneNode(true);
+        row.querySelector('.cl-k').textContent = 'Label';
+        var a = row.querySelector('.cl-v a');
+        a.textContent = 'name@example.com';
+        a.setAttribute('href','mailto:name@example.com');
+        cl.appendChild(row);
+      }
+      if(editing) setEditable(true);
+    });
+  });
+
+  dl.addEventListener('click', function(){
+    var clone = document.documentElement.cloneNode(true);
+    clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); });
+    var b = clone.querySelector('body');
+    if(b) b.classList.remove('editing');
+    var out = '<!DOCTYPE html>\n' + clone.outerHTML;
+    var blob = new Blob([out], {type:'text/html'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'index.html';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+})();
+</script>
+</body>
+</html>
